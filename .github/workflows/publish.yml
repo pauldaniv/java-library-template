@@ -22,7 +22,7 @@ jobs:
     - name: Define variables
       run: echo ttt > GITHUB_TOKEN
     - name: Show token
-      run: echo $(ttt)
+      run: echo $(GITHUB_TOKEN)
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Run tests
