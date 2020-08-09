@@ -25,5 +25,6 @@ jobs:
       run: ./gradlew test
     - name: Publish Template Library
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        USERNAME: ${{ secrets.GITHUB_USER }}
+        TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: ./gradlew publish
