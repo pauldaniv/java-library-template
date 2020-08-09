@@ -10,6 +10,9 @@ plugins {
 
 group = "com.pauldaniv.library.template"
 version = "1.0-SNAPSHOT"
+val deployUsr: String = (project.findProperty("gpr.usr") ?: System.getenv("USERNAME") ?: "").toString()
+val deployKey: String = (project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+?: System.getenv("GITHUB_TOKEN")).toString()
 
 subprojects {
   apply(plugin = "java")
@@ -25,8 +28,8 @@ subprojects {
         name = "GitHubPackages"
         url = uri("https://maven.pkg.github.com/pauldaniv/java-library-template")
         credentials {
-          username = project.findProperty("gpr.usr") as String? ?: System.getenv("USERNAME")
-          password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+          username = deployUsr
+          password = deployKey
         }
       }
     }
