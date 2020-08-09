@@ -67,6 +67,7 @@ allprojects {
     implementation(platform("com.paul:bom-template:0.0.+"))
     implementation("org.codehaus.groovy:groovy")
     testImplementation("org.assertj:assertj-core")
+    testImplementation("org.junit.jupiter:junit-jupiter")
   }
 
   configure<JavaPluginConvention> {
