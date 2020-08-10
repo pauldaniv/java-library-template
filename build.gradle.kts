@@ -11,9 +11,8 @@ plugins {
 group = "com.pauldaniv.library.template"
 version = "1.0-SNAPSHOT"
 
-val deployUsr: String = (project.findProperty("gpr.usr") ?: System.getenv("USERNAME") ?: "").toString()
-val deployKey: String = (project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-?: System.getenv("GITHUB_TOKEN")).toString()
+val githubUsr: String = findParam("gpr.usr", "USERNAME") ?: ""
+val githubKey: String? = findParam("gpr.key", "TOKEN", "GITHUB_TOKEN")
 
 subprojects {
   apply(plugin = "java")
@@ -26,11 +25,11 @@ subprojects {
   publishing {
     repositories {
       maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/pauldaniv/java-library-template")
+        name = "GitHub-Publish-Repo"
+        url = uri("https://maven.pkg.github.com/pauldaniv/${rootProject.name}")
         credentials {
-          username = deployUsr
-          password = deployKey
+          username = githubUsr
+          password = githubKey
         }
       }
     }
@@ -54,11 +53,11 @@ allprojects {
     jcenter()
     mavenCentral()
     maven {
-      name = "GitHubPackages"
+      name = "GitHub-Maven-Repo"
       url = uri("https://maven.pkg.github.com/pauldaniv/bom-template")
       credentials {
-        username = deployUsr
-        password = deployKey
+        username = githubUsr
+        password = githubKey
       }
     }
   }
@@ -93,4 +92,14 @@ allprojects {
   configurations.all {
     resolutionStrategy.cacheDynamicVersionsFor(1, "minutes")
   }
+}
+
+fun findParam(vararg names: String): String? {
+  for (name in names) {
+    val param = project.findProperty(name) as String? ?: System.getenv(name)
+    if (param != null) {
+      return param
+    }
+  }
+  return null
 }
