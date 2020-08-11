@@ -8,13 +8,11 @@ plugins {
   kotlin("jvm") version "1.3.50" apply false
 }
 
-group = "com.pauldaniv.library.template"
-version = "1.0-SNAPSHOT"
-
 val githubUsr: String = findParam("gpr.usr", "USERNAME") ?: ""
 val githubKey: String? = findParam("gpr.key", "TOKEN", "GITHUB_TOKEN")
 
 subprojects {
+  group = "com.pauldaniv.library.template"
   apply(plugin = "java")
   apply(plugin = "maven-publish")
   val sourcesJar by tasks.creating(Jar::class) {
