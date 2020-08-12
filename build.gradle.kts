@@ -12,7 +12,7 @@ val githubUsr: String = findParam("gpr.usr", "USERNAME") ?: ""
 val githubKey: String? = findParam("gpr.key", "TOKEN", "GITHUB_TOKEN")
 
 subprojects {
-  group = "com.pauldaniv.library.template"
+  group = "com.pauldaniv.java.library.template"
   apply(plugin = "java")
   apply(plugin = "maven-publish")
   val sourcesJar by tasks.creating(Jar::class) {
