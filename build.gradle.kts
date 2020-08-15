@@ -11,6 +11,8 @@ plugins {
 val githubUsr: String = findParam("gpr.usr", "USERNAME") ?: ""
 val githubKey: String? = findParam("gpr.key", "TOKEN", "GITHUB_TOKEN")
 
+val mavenPackageRepo = "https://maven.pkg.github.com/pauldaniv"
+
 subprojects {
   group = "com.pauldaniv.java.library.template"
   apply(plugin = "java")
@@ -24,7 +26,7 @@ subprojects {
     repositories {
       maven {
         name = "GitHub-Publish-Repo"
-        url = uri("https://maven.pkg.github.com/pauldaniv/${rootProject.name}")
+        url = uri("$mavenPackageRepo/${rootProject.name}")
         credentials {
           username = githubUsr
           password = githubKey
@@ -52,7 +54,7 @@ allprojects {
     mavenCentral()
     maven {
       name = "GitHub-Maven-Repo"
-      url = uri("https://maven.pkg.github.com/pauldaniv/bom-template")
+      url = uri("$mavenPackageRepo/bom-template")
       credentials {
         username = githubUsr
         password = githubKey
